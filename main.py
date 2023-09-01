@@ -4,11 +4,10 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from nltk.tokenize import sent_tokenize
 from nltk import download
 from statistics import mean
+download('punkt')
 
 data = pd.read_csv('Tweets.csv')
-ids = data['textID'].tolist()
 text = data['text'].tolist()
-print(text[:100])
 correct_scores = data['sentiment'].tolist()
 
 # identify correct sentiment
@@ -24,7 +23,7 @@ sia = SentimentIntensityAnalyzer()
 def is_positive(tweet: str) -> bool:
   # true if avg of compound scores of all sentences is positive
   scores = [sia.polarity_scores(sentence)["compound"] for sentence in sent_tokenize(tweet)]
-  return mean(scores) > 0.1
+  return mean(scores) > 0.25
 
 # show first 10 as example
 shuffle(text)
