@@ -6,6 +6,7 @@ from nltk import download
 from statistics import mean
 download('punkt')
 
+# parse tweets
 data = pd.read_csv('Tweets.csv')
 text = data['text'].tolist()
 correct_scores = data['sentiment'].tolist()
@@ -20,6 +21,7 @@ overallsentiment = 0
 
 sia = SentimentIntensityAnalyzer()
 
+# identify if a tweet sentiment is positive
 def is_positive(tweet: str) -> bool:
   # true if avg of compound scores of all sentences is positive
   scores = [sia.polarity_scores(sentence)["compound"] for sentence in sent_tokenize(tweet)]
